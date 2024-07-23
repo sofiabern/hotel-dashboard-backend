@@ -1,0 +1,31 @@
+description: 'Failed on the server side'
+content:
+  application/json:
+    schema:
+      type: object
+      required:
+        - status
+        - message
+        - errors
+      properties:
+        status:
+          type: integer
+        message:
+          type: string
+        errors:
+          type: array
+          items: {}
+    examples:
+      checkInNotFound:
+        summary: Check-in Not Found
+        value:
+          status: 500
+          message: Check-in not found
+          errors: []
+      clientNotFound:
+        summary: Client Not Found
+        value:
+          status: 500
+          message: Client not found
+          errors: []
+

@@ -1,0 +1,109 @@
+tags:
+  - Check-ins and Bookings
+summary: Create a new check-in, client, and update room
+operationId: createCheckIn
+description: 'Create a new check-in, a new client if not existing, and update the room'
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - last_name
+          - first_name
+          - passport_details
+          - room
+          - discounts
+          - totalDiscount
+          - isCheckIn
+          - check_in_date
+          - check_out_date
+          - totalDayPrice
+          - totalPrice
+        properties:
+          last_name:
+            type: string
+            example: Bern
+          first_name:
+            type: string
+            example: Sofiia
+          middle_name:
+            type: string
+            example: Anna
+          passport_details:
+            type: string
+            example: I80987654
+          comment:
+            type: string
+            example: "Client's comment"
+          discounts:
+            type: object
+            properties:
+              regularCustomer:
+                type: number
+                example: 0
+              military:
+                type: number
+                example: 0
+              guardian:
+                type: number
+                example: 0
+          totalDiscount:
+            type: number
+            example: 0
+          room:
+            type: string
+            format: objectId
+            example: 6692b1fcbef1fbe19214aa48
+          check_in_date:
+            type: string
+            format: date-time
+            example: "2024-07-24T21:00:00.000Z"
+          check_out_date:
+            type: string
+            format: date-time
+            example: "2024-07-26T21:00:00.000Z"
+          isCheckIn:
+            type: boolean
+            example: false
+          totalDayPrice:
+            type: number
+            example: 500
+          totalPrice:
+            type: number
+            example: 1000
+responses:
+  '201':
+    description: 'Created check-in, created or updated client, and updated room'
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: 'Created check-in and client, and updated room'
+            data:
+              type: object
+              required:
+                - client
+                - checkIn
+              properties:
+                client:
+                  $ref: '../../components/schemas/client.yaml'
+                checkIn:
+                  $ref: '../../components/schemas/check-in.yaml'
+  '401':
+    $ref: '../../components/responses/401.yaml'
+  '500':
+    $ref: ..\..\components\responses\check-ins\post\500.yaml

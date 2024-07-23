@@ -1,0 +1,20 @@
+description: 'Conflict - User with this email is already present'
+content:
+  application/json:
+    schema:
+      type: object
+      required:
+        - status
+        - message
+        - errors
+      properties:
+        status:
+          type: integer
+          example: 409
+        message:
+          type: string
+          example: 'User with this email is already present in database!'
+        errors:
+          type: array
+          items: {}
+          example: []

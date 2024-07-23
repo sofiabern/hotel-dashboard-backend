@@ -1,0 +1,30 @@
+description: 'Unauthorized'
+content:
+  application/json:
+    schema:
+      type: object
+      required:
+        - status
+        - message
+        - errors
+      properties:
+        status:
+          type: integer
+        message:
+          type: string
+        errors:
+          type: array
+          items: {}
+    examples:
+      jwtExpired:
+        summary: JWT Expired
+        value:
+          status: 401
+          message: jwt expired
+          errors: []
+      authorizationHeaderNotDefined:
+        summary: Authorization Header Not Defined
+        value:
+          status: 401
+          message: Authorization header is not defined
+          errors: []

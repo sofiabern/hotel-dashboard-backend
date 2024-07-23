@@ -1,0 +1,47 @@
+type: object
+required:
+  - last_name
+  - first_name
+  - passport_details
+  - visitsAmount
+  - discounts
+  - totalDiscount
+properties:
+  last_name:
+    type: string
+    example: Grace
+  first_name:
+    type: string
+    example: Sofiia
+  middle_name:
+    type: string
+    example: William
+  passport_details:
+    type: string
+    example: I8098763
+  visitsAmount:
+    type: integer
+    example: 1
+  discounts:
+    type: object
+    required:
+      - regularCustomer
+      - military
+      - guardian
+    properties:
+      regularCustomer:
+        type: number
+        example: 0
+      military:
+        type: number
+        example: 0
+      guardian:
+        type: number
+        example: 0
+      _id:
+        type: string
+        format: objectId
+        example: 669eaff3da02a808eabd6618
+  totalDiscount:
+    type: number
+    example: 0

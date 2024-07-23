@@ -1,0 +1,43 @@
+tags:
+  - Clients
+summary: Get client visits by passport details
+operationId: getClientVisits
+description: 'Retrieve the number of visits for a client based on passport details'
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - passport_details
+        properties:
+          passport_details:
+            type: string
+            example: I80987655
+responses:
+  '200':
+    description: 'Successfully retrieved client visits'
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: "Successfully got client's visits with passport number I80987655!"
+            data:
+              type: integer
+              example: 1
+  '401':
+    $ref: ..\..\..\components\responses\401.yaml
+

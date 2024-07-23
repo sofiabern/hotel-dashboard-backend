@@ -1,0 +1,20 @@
+description: 'Incorrect password'
+content:
+  application/json:
+    schema:
+      type: object
+      required:
+        - status
+        - message
+        - errors
+      properties:
+        status:
+          type: integer
+          example: 401
+        message:
+          type: string
+          example: 'Incorrect password'
+        errors:
+          type: array
+          items: {}
+          example: []
