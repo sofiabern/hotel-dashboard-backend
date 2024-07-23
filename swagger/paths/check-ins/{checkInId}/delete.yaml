@@ -1,0 +1,37 @@
+tags:
+  - Check-ins and Bookings
+summary: Delete a check-in
+operationId: deleteCheckIn
+description: 'Delete a check-in and update related client and room records'
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: checkInId
+    required: true
+    schema:
+      type: string
+      format: objectId
+    description: The ID of the check-in to delete
+responses:
+  '200':
+    description: 'Successfully deleted check-in or booking'
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: 'Successfully deleted check-in or booking!'
+  '401':
+   $ref: ..\..\..\components\responses\401.yaml
+  '500':
+   $ref: ..\..\..\components\responses\check-ins\delete\500-delete.yaml
+

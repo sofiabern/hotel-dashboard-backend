@@ -1,0 +1,1495 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Hotel management app",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "description": "This is a documentation of Hotel management app\n"
+  },
+  "servers": [
+    {
+      "url": "https://hotel-dashboard-backend.onrender.com"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Rooms",
+      "description": "Operations about rooms."
+    },
+    {
+      "name": "Check-ins and Bookings",
+      "description": "Operations about check-ins and bookings."
+    },
+    {
+      "name": "Clients",
+      "description": "Operations about clients."
+    },
+    {
+      "name": "Auth",
+      "description": "Auth operations."
+    }
+  ],
+  "paths": {
+    "/rooms": {
+      "get": {
+        "tags": [
+          "Rooms"
+        ],
+        "summary": "Get all rooms",
+        "operationId": "getRooms",
+        "description": "Get all rooms",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully got all rooms!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully got all rooms"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/room"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/clients": {
+      "get": {
+        "tags": [
+          "Clients"
+        ],
+        "summary": "Get all clients",
+        "operationId": "getClients",
+        "description": "Get all clients",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully got filtered clients!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully got filtered clients!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "clients",
+                        "page",
+                        "perPage",
+                        "totalItems",
+                        "totalPages",
+                        "hasPreviousPage",
+                        "hasNextPage"
+                      ],
+                      "properties": {
+                        "clients": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/client"
+                          }
+                        },
+                        "page": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "perPage": {
+                          "type": "integer",
+                          "example": 6
+                        },
+                        "totalItems": {
+                          "type": "integer",
+                          "example": 4
+                        },
+                        "totalPages": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "hasPreviousPage": {
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "hasNextPage": {
+                          "type": "boolean",
+                          "example": false
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/clients/visits": {
+      "post": {
+        "tags": [
+          "Clients"
+        ],
+        "summary": "Get client visits by passport details",
+        "operationId": "getClientVisits",
+        "description": "Retrieve the number of visits for a client based on passport details",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "passport_details"
+                ],
+                "properties": {
+                  "passport_details": {
+                    "type": "string",
+                    "example": "I80987655"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved client visits",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully got client's visits with passport number I80987655!"
+                    },
+                    "data": {
+                      "type": "integer",
+                      "example": 1
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/check-ins": {
+      "get": {
+        "tags": [
+          "Check-ins and Bookings"
+        ],
+        "summary": "Get all check-ins and bookings",
+        "operationId": "getCheckIns",
+        "description": "Get all check-ins and bookings with pagination",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully got filtered check-ins!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully got filtered check-ins!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "checkIns",
+                        "page",
+                        "perPage",
+                        "totalItems",
+                        "totalPages",
+                        "hasPreviousPage",
+                        "hasNextPage"
+                      ],
+                      "properties": {
+                        "checkIns": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/populatedCheck-in"
+                          }
+                        },
+                        "page": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "perPage": {
+                          "type": "integer",
+                          "example": 6
+                        },
+                        "totalItems": {
+                          "type": "integer",
+                          "example": 4
+                        },
+                        "totalPages": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "hasPreviousPage": {
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "hasNextPage": {
+                          "type": "boolean",
+                          "example": false
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Check-ins and Bookings"
+        ],
+        "summary": "Create a new check-in, client, and update room",
+        "operationId": "createCheckIn",
+        "description": "Create a new check-in, a new client if not existing, and update the room",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "last_name",
+                  "first_name",
+                  "passport_details",
+                  "room",
+                  "discounts",
+                  "totalDiscount",
+                  "isCheckIn",
+                  "check_in_date",
+                  "check_out_date",
+                  "totalDayPrice",
+                  "totalPrice"
+                ],
+                "properties": {
+                  "last_name": {
+                    "type": "string",
+                    "example": "Bern"
+                  },
+                  "first_name": {
+                    "type": "string",
+                    "example": "Sofiia"
+                  },
+                  "middle_name": {
+                    "type": "string",
+                    "example": "Anna"
+                  },
+                  "passport_details": {
+                    "type": "string",
+                    "example": "I80987654"
+                  },
+                  "comment": {
+                    "type": "string",
+                    "example": "Client's comment"
+                  },
+                  "discounts": {
+                    "type": "object",
+                    "properties": {
+                      "regularCustomer": {
+                        "type": "number",
+                        "example": 0
+                      },
+                      "military": {
+                        "type": "number",
+                        "example": 0
+                      },
+                      "guardian": {
+                        "type": "number",
+                        "example": 0
+                      }
+                    }
+                  },
+                  "totalDiscount": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "room": {
+                    "type": "string",
+                    "format": "objectId",
+                    "example": "6692b1fcbef1fbe19214aa48"
+                  },
+                  "check_in_date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2024-07-24T21:00:00.000Z"
+                  },
+                  "check_out_date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2024-07-26T21:00:00.000Z"
+                  },
+                  "isCheckIn": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "totalDayPrice": {
+                    "type": "number",
+                    "example": 500
+                  },
+                  "totalPrice": {
+                    "type": "number",
+                    "example": 1000
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created check-in, created or updated client, and updated room",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Created check-in and client, and updated room"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "client",
+                        "checkIn"
+                      ],
+                      "properties": {
+                        "client": {
+                          "$ref": "#/components/schemas/client"
+                        },
+                        "checkIn": {
+                          "$ref": "#/components/schemas/check-in"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/check-ins/{checkInId}": {
+      "patch": {
+        "tags": [
+          "Check-ins and Bookings"
+        ],
+        "summary": "Update an existing check-in",
+        "operationId": "updateCheckIn",
+        "description": "Update an existing check-in",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "checkInId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "client": {
+                    "type": "string",
+                    "example": "669eb55ada84f75debf34dc2"
+                  },
+                  "room": {
+                    "type": "string",
+                    "example": "6692b1fcbef1fbe19214aa48"
+                  },
+                  "check_in_date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2024-07-24T21:00:00.000Z"
+                  },
+                  "check_out_date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2024-07-26T21:00:00.000Z"
+                  },
+                  "isCheckIn": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "totalDayPrice": {
+                    "type": "number",
+                    "example": 500
+                  },
+                  "totalPrice": {
+                    "type": "number",
+                    "example": 1000
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully updated check-in",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully updated check-in with id 6692b1d6bef1fbe19214aa47!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/check-in"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500-patch"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Check-ins and Bookings"
+        ],
+        "summary": "Delete a check-in",
+        "operationId": "deleteCheckIn",
+        "description": "Delete a check-in and update related client and room records",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "checkInId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "objectId"
+            },
+            "description": "The ID of the check-in to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully deleted check-in or booking",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully deleted check-in or booking!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500-delete"
+          }
+        }
+      }
+    },
+    "/auth/signup": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Create a new user",
+        "operationId": "signupUser",
+        "description": "Register a new user with email and password",
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "email",
+                  "password"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Alisa"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "alisa@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "format": "password",
+                    "example": "111111"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User successfully created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "User is created!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/user"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "User login",
+        "description": "Log in a user with email and password",
+        "security": [],
+        "operationId": "loginUser",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "password"
+                ],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "alisa@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "111111"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User successfully logged in",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "User is logged in!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "token"
+                      ],
+                      "properties": {
+                        "token": {
+                          "type": "string",
+                          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OWVlMWY0MWNiNTllODRjMGY4YTM0NSIsImlhdCI6MTcyMTcyOTgxOSwiZXhwIjoxNzIxNzczMDE5fQ.v0nXkZVmR-o7uKKiZHTg6GORZwnIqs-1f4eyJvGEjDU"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401-login"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "User logout",
+        "operationId": "logoutUser",
+        "description": "Logout a user by invalidating the token",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "token"
+                ],
+                "properties": {
+                  "token": {
+                    "type": "string",
+                    "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OWY5MjFmYjBjM2FlYjUzOGI1YjU0MyIsImlhdCI6MTcyMTczMzY2NCwiZXhwIjoxNzIxNzc2ODY0fQ.wwVyBuayOAI7gdbt5WN0JWRdS1MC9txQ4s4Erkw5h3w"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Logout successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Logout successful"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/auth/current": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Get current user information",
+        "operationId": "getCurrentUser",
+        "description": "Retrieve information about the currently authenticated user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Current user information retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "email"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "Alina"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "alina@gmail.com"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "room": {
+        "type": "object",
+        "required": [
+          "room_number",
+          "capacity",
+          "comfort_level",
+          "image",
+          "price",
+          "bookingsAndCheckIns"
+        ],
+        "properties": {
+          "room_number": {
+            "type": "integer",
+            "example": 101
+          },
+          "capacity": {
+            "type": "integer",
+            "example": 2
+          },
+          "bookingsAndCheckIns": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "format": "objectId",
+                  "example": "669b85183a86f2f9e11135dc"
+                },
+                "check_in_date": {
+                  "type": "string",
+                  "format": "date-time",
+                  "example": "2024-07-23T21:00:00.000Z"
+                },
+                "check_out_date": {
+                  "type": "string",
+                  "format": "date-time",
+                  "example": "2024-07-25T21:00:00.000Z"
+                }
+              },
+              "example": [
+                {
+                  "_id": "669b85183a86f2f9e11135dc",
+                  "check_in_date": "2024-07-23T21:00:00.000Z",
+                  "check_out_date": "2024-07-25T21:00:00.000Z"
+                }
+              ]
+            },
+            "example": []
+          },
+          "comfort_level": {
+            "type": "string",
+            "enum": [
+              "Suite",
+              "Junior Suite",
+              "Standard"
+            ],
+            "example": "Standard"
+          },
+          "image": {
+            "type": "string",
+            "example": "https://i.postimg.cc/KjzrmCRR/117375809.jpg"
+          },
+          "price": {
+            "type": "number",
+            "example": 100
+          }
+        }
+      },
+      "client": {
+        "type": "object",
+        "required": [
+          "last_name",
+          "first_name",
+          "passport_details",
+          "visitsAmount",
+          "discounts",
+          "totalDiscount"
+        ],
+        "properties": {
+          "last_name": {
+            "type": "string",
+            "example": "Grace"
+          },
+          "first_name": {
+            "type": "string",
+            "example": "Sofiia"
+          },
+          "middle_name": {
+            "type": "string",
+            "example": "William"
+          },
+          "passport_details": {
+            "type": "string",
+            "example": "I8098763"
+          },
+          "visitsAmount": {
+            "type": "integer",
+            "example": 1
+          },
+          "discounts": {
+            "type": "object",
+            "required": [
+              "regularCustomer",
+              "military",
+              "guardian"
+            ],
+            "properties": {
+              "regularCustomer": {
+                "type": "number",
+                "example": 0
+              },
+              "military": {
+                "type": "number",
+                "example": 0
+              },
+              "guardian": {
+                "type": "number",
+                "example": 0
+              },
+              "_id": {
+                "type": "string",
+                "format": "objectId",
+                "example": "669eaff3da02a808eabd6618"
+              }
+            }
+          },
+          "totalDiscount": {
+            "type": "number",
+            "example": 0
+          }
+        }
+      },
+      "populatedCheck-in": {
+        "type": "object",
+        "required": [
+          "_id",
+          "client",
+          "room",
+          "check_in_date",
+          "check_out_date",
+          "isCheckIn",
+          "totalDayPrice",
+          "totalPrice"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "format": "objectId",
+            "example": "669b84de3a86f2f9e11135be"
+          },
+          "client": {
+            "type": "object",
+            "required": [
+              "_id",
+              "last_name",
+              "first_name"
+            ],
+            "properties": {
+              "_id": {
+                "type": "string",
+                "format": "objectId",
+                "example": "669b84de3a86f2f9e11135bc"
+              },
+              "last_name": {
+                "type": "string",
+                "example": "Grace"
+              },
+              "first_name": {
+                "type": "string",
+                "example": "Sofiia"
+              }
+            }
+          },
+          "room": {
+            "type": "object",
+            "required": [
+              "_id",
+              "room_number"
+            ],
+            "properties": {
+              "_id": {
+                "type": "string",
+                "format": "objectId",
+                "example": "6692b1d6bef1fbe19214aa47"
+              },
+              "room_number": {
+                "type": "integer",
+                "example": 109
+              }
+            }
+          },
+          "check_in_date": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-07-28T21:00:00.000Z"
+          },
+          "check_out_date": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-07-30T21:00:00.000Z"
+          },
+          "isCheckIn": {
+            "type": "boolean",
+            "example": false
+          },
+          "totalDayPrice": {
+            "type": "number",
+            "example": 350
+          },
+          "totalPrice": {
+            "type": "number",
+            "example": 700
+          }
+        }
+      },
+      "check-in": {
+        "type": "object",
+        "required": [
+          "_id",
+          "client",
+          "room",
+          "check_in_date",
+          "check_out_date",
+          "isCheckIn",
+          "totalDayPrice",
+          "totalPrice"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "format": "objectId",
+            "example": "669b84de3a86f2f9e11135be"
+          },
+          "client": {
+            "type": "string",
+            "format": "objectId",
+            "example": "669b84de3a86f2f9e11135bc"
+          },
+          "room": {
+            "type": "string",
+            "format": "objectId",
+            "example": "6692b1d6bef1fbe19214aa47"
+          },
+          "check_in_date": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-07-28T21:00:00.000Z"
+          },
+          "check_out_date": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-07-30T21:00:00.000Z"
+          },
+          "isCheckIn": {
+            "type": "boolean",
+            "example": false
+          },
+          "totalDayPrice": {
+            "type": "number",
+            "example": 350
+          },
+          "totalPrice": {
+            "type": "number",
+            "example": 700
+          }
+        }
+      },
+      "user": {
+        "type": "object",
+        "required": [
+          "name",
+          "email",
+          "password",
+          "_id",
+          "createdAt",
+          "updatedAt"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Alisa"
+          },
+          "email": {
+            "type": "string",
+            "example": "alisa@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "$2b$10$KnsPzvCnX47FbJtmJv7ZKen/Iqn00kLIFStx9iC9kBq6Wp5ozd2CK"
+          },
+          "_id": {
+            "type": "string",
+            "format": "objectId",
+            "example": "669ee1f41cb59e84c0f8a345"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-07-22T22:49:24.199Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-07-22T22:49:24.199Z"
+          }
+        }
+      }
+    },
+    "responses": {
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "errors"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {}
+                }
+              }
+            },
+            "examples": {
+              "jwtExpired": {
+                "summary": "JWT Expired",
+                "value": {
+                  "status": 401,
+                  "message": "jwt expired",
+                  "errors": []
+                }
+              },
+              "authorizationHeaderNotDefined": {
+                "summary": "Authorization Header Not Defined",
+                "value": {
+                  "status": 401,
+                  "message": "Authorization header is not defined",
+                  "errors": []
+                }
+              }
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "User not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "errors"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 404
+                },
+                "message": {
+                  "type": "string",
+                  "example": "User not found"
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {},
+                  "example": []
+                }
+              }
+            }
+          }
+        }
+      },
+      "409": {
+        "description": "Conflict - User with this email is already present",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "errors"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 409
+                },
+                "message": {
+                  "type": "string",
+                  "example": "User with this email is already present in database!"
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {},
+                  "example": []
+                }
+              }
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Failed on the server side",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "errors"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {}
+                }
+              }
+            },
+            "examples": {
+              "roomNotFound": {
+                "summary": "Room Not Found",
+                "value": {
+                  "status": 500,
+                  "message": "Room not found",
+                  "errors": []
+                }
+              },
+              "failedToCreateClient": {
+                "summary": "Failed To Create Client",
+                "value": {
+                  "status": 500,
+                  "message": "Failed to create client",
+                  "errors": []
+                }
+              },
+              "failedToCreateCheckIn": {
+                "summary": "Failed To Create Check-in",
+                "value": {
+                  "status": 500,
+                  "message": "Failed to create check-in",
+                  "errors": []
+                }
+              }
+            }
+          }
+        }
+      },
+      "500-delete": {
+        "description": "Failed on the server side",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "errors"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {}
+                }
+              }
+            },
+            "examples": {
+              "checkInNotFound": {
+                "summary": "Check-in Not Found",
+                "value": {
+                  "status": 500,
+                  "message": "Check-in not found",
+                  "errors": []
+                }
+              },
+              "clientNotFound": {
+                "summary": "Client Not Found",
+                "value": {
+                  "status": 500,
+                  "message": "Client not found",
+                  "errors": []
+                }
+              }
+            }
+          }
+        }
+      },
+      "500-patch": {
+        "description": "Check-in not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "errors"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 500
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Check-in not found"
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {},
+                  "example": []
+                }
+              }
+            }
+          }
+        }
+      },
+      "401-login": {
+        "description": "Incorrect password",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "errors"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Incorrect password"
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {},
+                  "example": []
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

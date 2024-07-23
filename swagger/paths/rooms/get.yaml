@@ -1,0 +1,31 @@
+tags:
+  - Rooms
+summary: Get all rooms
+operationId: getRooms
+description: 'Get all rooms'
+security:
+  - bearerAuth: []
+responses:
+  '200':
+    description: 'Successfully got all rooms!'
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully got all rooms
+            data:
+              type: array
+              items:
+                $ref: '../../components/schemas/room.yaml'
+  '401':
+    $ref: '../../components/responses/401.yaml'

@@ -1,0 +1,62 @@
+type: object
+required:
+  - _id
+  - client
+  - room
+  - check_in_date
+  - check_out_date
+  - isCheckIn
+  - totalDayPrice
+  - totalPrice
+properties:
+  _id:
+    type: string
+    format: objectId
+    example: 669b84de3a86f2f9e11135be
+  client:
+    type: object
+    required:
+      - _id
+      - last_name
+      - first_name
+    properties:
+      _id:
+        type: string
+        format: objectId
+        example: 669b84de3a86f2f9e11135bc
+      last_name:
+        type: string
+        example: Grace
+      first_name:
+        type: string
+        example: Sofiia
+  room:
+    type: object
+    required:
+      - _id
+      - room_number
+    properties:
+      _id:
+        type: string
+        format: objectId
+        example: 6692b1d6bef1fbe19214aa47
+      room_number:
+        type: integer
+        example: 109
+  check_in_date:
+    type: string
+    format: date-time
+    example: 2024-07-28T21:00:00.000Z
+  check_out_date:
+    type: string
+    format: date-time
+    example: 2024-07-30T21:00:00.000Z
+  isCheckIn:
+    type: boolean
+    example: false
+  totalDayPrice:
+    type: number
+    example: 350
+  totalPrice:
+    type: number
+    example: 700

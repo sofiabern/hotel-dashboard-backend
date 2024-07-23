@@ -1,0 +1,30 @@
+type: object
+required:
+  - name
+  - email
+  - password
+  - _id
+  - createdAt
+  - updatedAt
+properties:
+  name:
+    type: string
+    example: Alisa
+  email:
+    type: string
+    example: alisa@gmail.com
+  password:
+    type: string
+    example: '$2b$10$KnsPzvCnX47FbJtmJv7ZKen/Iqn00kLIFStx9iC9kBq6Wp5ozd2CK'
+  _id:
+    type: string
+    format: objectId
+    example: 669ee1f41cb59e84c0f8a345
+  createdAt:
+    type: string
+    format: date-time
+    example: '2024-07-22T22:49:24.199Z'
+  updatedAt:
+    type: string
+    format: date-time
+    example: '2024-07-22T22:49:24.199Z'

@@ -1,0 +1,36 @@
+description: 'Failed on the server side'
+content:
+  application/json:
+    schema:
+      type: object
+      required:
+        - status
+        - message
+        - errors
+      properties:
+        status:
+          type: integer
+        message:
+          type: string
+        errors:
+          type: array
+          items: {}
+    examples:
+      roomNotFound:
+        summary: Room Not Found
+        value:
+          status: 500
+          message: Room not found
+          errors: []
+      failedToCreateClient:
+        summary: Failed To Create Client
+        value:
+          status: 500
+          message: Failed to create client
+          errors: []
+      failedToCreateCheckIn:
+        summary: Failed To Create Check-in
+        value:
+          status: 500
+          message: Failed to create check-in
+          errors: []

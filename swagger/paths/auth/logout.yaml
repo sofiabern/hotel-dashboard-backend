@@ -1,0 +1,39 @@
+tags:
+  - Auth
+summary: User logout
+operationId: logoutUser
+description: 'Logout a user by invalidating the token'
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - token
+        properties:
+          token:
+            type: string
+            example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OWY5MjFmYjBjM2FlYjUzOGI1YjU0MyIsImlhdCI6MTcyMTczMzY2NCwiZXhwIjoxNzIxNzc2ODY0fQ.wwVyBuayOAI7gdbt5WN0JWRdS1MC9txQ4s4Erkw5h3w'
+responses:
+  '200':
+    description: 'Logout successful'
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: 'Logout successful'
+  '401':
+    $ref: ../../components/responses/401.yaml
+
