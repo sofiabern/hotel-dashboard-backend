@@ -1,5 +1,18 @@
-import { getAllRooms, getRoomById, updateRoom } from '../services/rooms.js';
+import { getAllRooms, getRoomById, updateRoom, getRooms } from '../services/rooms.js';
 import createHttpError from 'http-errors';
+
+
+export const getRoomsController = async (req, res) => {
+  const { checkInDate, checkOutDate, comfortLevel } = req.query;
+
+    const filteredRooms = await getRooms(checkInDate, checkOutDate, comfortLevel);
+
+    return res.json({
+      status: 200,
+      message: checkInDate && checkOutDate ? "Successfully got filtered rooms" : "Successfully got all rooms",
+      data: filteredRooms
+    });
+};
 
 
 export const getAllRoomsController = async (req, res) => {
