@@ -23,7 +23,9 @@ export const getRooms = async (checkInDate, checkOutDate, comfortLevel) => {
   const rooms = await getAllRooms();
 
   if (!checkInDate || !checkOutDate) {
-    return rooms;
+    return rooms.filter(room => comfortLevel
+      ? room.comfort_level.toLowerCase() === comfortLevel.toLowerCase()
+      : true);
   }
 
   const requestedStart = new Date(checkInDate);
@@ -31,8 +33,9 @@ export const getRooms = async (checkInDate, checkOutDate, comfortLevel) => {
 
   return rooms.filter(room => {
     const isAvailable = isRoomAvailable(requestedStart, requestedEnd, room.bookingsAndCheckIns);
-    const matchesComfortLevel = comfortLevel ? room.comfort_level === comfortLevel : true;
-
+    const matchesComfortLevel = comfortLevel
+      ? room.comfort_level.toLowerCase() === comfortLevel.toLowerCase()
+      : true;
     return isAvailable && matchesComfortLevel;
   });
 };
