@@ -40,7 +40,7 @@
         ],
         "summary": "Get all rooms with optional filtering",
         "operationId": "getRooms",
-        "description": "Retrieve all rooms or filter rooms based on check-in and check-out dates, and comfort level. If no filter parameters are provided, all rooms are returned.",
+        "description": "Retrieve all rooms or filter rooms based on check-in and check-out dates, and comfort level. If no filter parameters are provided, all rooms are returned. If only dates are provided, rooms are filtered by availability, ignoring comfort level. If both dates and comfort level are provided, rooms are filtered by both criteria.",
         "security": [
           {
             "bearerAuth": []
@@ -50,7 +50,7 @@
           {
             "name": "checkInDate",
             "in": "query",
-            "description": "The start date for filtering rooms based on check-in date (ISO 8601 format).",
+            "description": "The start date for filtering rooms based on check-in date (ISO 8601 format). If not provided, all rooms are considered available regardless of dates.",
             "required": false,
             "schema": {
               "type": "string",
@@ -60,7 +60,7 @@
           {
             "name": "checkOutDate",
             "in": "query",
-            "description": "The end date for filtering rooms based on check-out date (ISO 8601 format).",
+            "description": "The end date for filtering rooms based on check-out date (ISO 8601 format). If not provided, all rooms are considered available regardless of dates.",
             "required": false,
             "schema": {
               "type": "string",
@@ -70,7 +70,7 @@
           {
             "name": "comfortLevel",
             "in": "query",
-            "description": "Filter rooms by comfort level.",
+            "description": "Filter rooms by comfort level. If not provided, rooms are returned regardless of comfort level.",
             "required": false,
             "schema": {
               "type": "string"
@@ -96,7 +96,7 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Successfully got filtered rooms or Successfully got all rooms"
+                      "example": "Successfully got filtered rooms"
                     },
                     "data": {
                       "type": "array",
