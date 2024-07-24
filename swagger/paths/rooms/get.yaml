@@ -1,13 +1,38 @@
 tags:
   - Rooms
-summary: Get all rooms
+
+summary: Get all rooms with optional filtering
 operationId: getRooms
-description: 'Get all rooms'
+description: 'Retrieve all rooms or filter rooms based on check-in and check-out dates, and comfort level. If no filter parameters are provided, all rooms are returned.'
+
 security:
   - bearerAuth: []
+
+parameters:
+  - name: checkInDate
+    in: query
+    description: 'The start date for filtering rooms based on check-in date (ISO 8601 format).'
+    required: false
+    schema:
+      type: string
+      format: date-time
+  - name: checkOutDate
+    in: query
+    description: 'The end date for filtering rooms based on check-out date (ISO 8601 format).'
+    required: false
+    schema:
+      type: string
+      format: date-time
+  - name: comfortLevel
+    in: query
+    description: 'Filter rooms by comfort level.'
+    required: false
+    schema:
+      type: string
+
 responses:
   '200':
-    description: 'Successfully got all rooms!'
+    description: 'Successfully retrieved the rooms based on provided filters or all rooms if no filters are applied.'
     content:
       application/json:
         schema:
@@ -22,10 +47,11 @@ responses:
               example: 200
             message:
               type: string
-              example: Successfully got all rooms
+              example: Successfully got filtered rooms
             data:
               type: array
               items:
                 $ref: '../../components/schemas/room.yaml'
   '401':
     $ref: '../../components/responses/401.yaml'
+ 

@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 // Controllers
 import {
-  getAllRoomsController,
+  getRoomsController,
 } from '../controllers/rooms.js';
 
 // Middlewares
@@ -13,4 +13,4 @@ export const roomsRouter = Router();
 
 roomsRouter.use(authenticate);
 
-roomsRouter.get('/', ctrlWrapper(getAllRoomsController) );
+roomsRouter.get('/', ctrlWrapper(getRoomsController) );
