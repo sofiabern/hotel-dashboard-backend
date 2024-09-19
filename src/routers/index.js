@@ -5,6 +5,8 @@ import { clientsRouter } from "./clients.js";
 import { checkInsRouter } from "./check-ins.js";
 import { authRouter } from "./auth.js";
 
+
+
 export const rootRouter = Router();
 
 rootRouter.use('/rooms',roomsRouter);
