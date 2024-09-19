@@ -38,16 +38,6 @@ export const getCheckInsController = async (req, res) => {
   }
 };
 
-export const getCheckInByIdController = async (req, res) => {
-  const id = req.params.checkInId;
-  const checkIn = await getCheckInById(id);
-
-  res.json({
-    status: 200,
-    message: `Successfully got check-in with id ${id}!`,
-    data: checkIn,
-  });
-};
 
 export const deleteCheckInController = async (req, res) => {
   const id = req.params.checkInId;
