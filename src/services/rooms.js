@@ -1,6 +1,8 @@
-import { Room } from '../db/models/rooms.js';
 import createHttpError from 'http-errors';
 import { isBefore, isAfter, isEqual } from 'date-fns';
+
+import { Room } from '../db/models/rooms.js';
+
 
 
 const isRoomAvailable = (startDate, endDate, bookingsAndCheckIns) => {

@@ -1,9 +1,11 @@
 import createHttpError from 'http-errors';
-import { User } from '../db/models/users.js';
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
+
 import { env } from '../utils/env.js';
 import { ENV_VARS } from '../constants/index.js';
+import { User } from '../db/models/users.js';
+
 
 
 export const createUser = async (payload) => {

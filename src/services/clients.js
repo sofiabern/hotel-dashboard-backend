@@ -1,5 +1,7 @@
 import { Client } from '../db/models/clients.js';
 
+
+
 const createPaginationInformation = (page, perPage, count) => {
   const totalPages = Math.ceil(count/perPage);
   const hasNextPage = page < totalPages;
@@ -13,8 +15,6 @@ const createPaginationInformation = (page, perPage, count) => {
     hasNextPage,
   };
 };
-
-
 
 export const getClients = async ({ page = 1, perPage = 6, filter = '' }) => {
   const skip = perPage * (page - 1);
