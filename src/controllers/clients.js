@@ -1,6 +1,5 @@
 import {
   getClients,
-  getClientById,
   getClient,
 } from '../services/clients.js';
 
@@ -15,18 +14,6 @@ export const getClientsController = async (req, res) => {
     data: clients,
   });
 };
-
-export const getClientByIdController = async (req, res) => {
-  const id = req.params.clientId;
-  const client = await getClientById(id);
-
-  res.json({
-    status: 200,
-    message: `Successfully got client with id ${id}!`,
-    data: client,
-  });
-};
-
 
 export const getClientVisitsController = async (req, res) => {
  const {passport_details} = req.body;
