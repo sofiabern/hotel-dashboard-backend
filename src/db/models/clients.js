@@ -1,5 +1,3 @@
-// Клієнти (Клієнт, Прізвище, Ім'я, По батькові, Паспортні дані, Коментар)
-
 import { Schema, model } from 'mongoose';
 
 const clientSchema = new Schema({

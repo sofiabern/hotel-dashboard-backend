@@ -4,11 +4,11 @@ import cors from 'cors';
 import { env } from './utils/env.js';
 import { ENV_VARS } from './constants/index.js';
 import { swaggerDocs } from './middlewares/swaggerDocs.js';
-
+import {rootRouter} from "./routers/index.js";
 import { errorHandlerMiddleware } from './middlewares/errorHandlerMiddleware.js';
 import { notFoundMiddleware } from './middlewares/notFoundMiddleware.js';
 
-import {rootRouter} from "./routers/index.js";
+
 
 export const startServer = () => {
   const app = express();

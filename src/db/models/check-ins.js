@@ -1,4 +1,3 @@
-// Поселення (Клієнт, Номер, Дата поселення, Дата звільнення, Примітка).
 import { Schema, model } from 'mongoose';
 
 const checkInSchema = new Schema(

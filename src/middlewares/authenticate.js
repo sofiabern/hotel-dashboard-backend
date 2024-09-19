@@ -1,8 +1,10 @@
 import createHttpError from 'http-errors';
 import jwt from 'jsonwebtoken';
-import { User } from '../db/models/users.js';
+
 import { env } from '../utils/env.js';
 import { ENV_VARS } from '../constants/index.js';
+import { User } from '../db/models/users.js';
+
 
 
 export const authenticate = async (req, res, next) => {

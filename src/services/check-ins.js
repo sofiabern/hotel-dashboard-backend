@@ -1,5 +1,7 @@
 import { CheckIn } from '../db/models/check-ins.js';
 
+
+
 const createPaginationInformation = (page, perPage, count) => {
   const totalPages = Math.ceil(count / perPage);
   const hasNextPage = page < totalPages;
